@@ -42,7 +42,7 @@ def start() -> FastAPI:
         beer.id = beer_id
         return service.put_stock(beer)
 
-    @app.post("/stock/")
+    @app.post("/stock")
     def post_beer(beer: Beer) -> Beer:  # type: ignore
         return service.put_stock(beer)
 
@@ -84,7 +84,7 @@ def start() -> FastAPI:
 
         return result
 
-    @app.post("/orders/")
+    @app.post("/orders")
     def post_order() -> Order:  # type: ignore
         return service.create_order()
 
@@ -96,7 +96,7 @@ def start() -> FastAPI:
 
         return order
 
-    @app.get("/orders/")
+    @app.get("/orders")
     def get_all_orders() -> OrdersResponse:  # type: ignore
         orders = service.get_all_orders()
         return OrdersResponse(orders=orders)

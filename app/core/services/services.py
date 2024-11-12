@@ -64,8 +64,10 @@ class Service:
             round_total_no_discounts = 0.0
             for item in round.items:
                 round_total_with_discounts += (
-                    (item.price_per_unit * item.quantity) - item.discount_flat
-                ) * (1 - item.discount_rate)
+                    (item.price_per_unit - item.discount_flat)
+                    * item.quantity
+                    * (1 - item.discount_rate)
+                )
                 round_total_no_discounts += item.price_per_unit * item.quantity
             sub_total += round_total_no_discounts
             discounts += round_total_no_discounts - round_total_with_discounts
