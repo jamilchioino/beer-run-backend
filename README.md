@@ -17,6 +17,8 @@ uv run pyright
 uv run pytest
 ```
 
+The project does not reach 100% coverage for testing as it would take too much time for the excercise.
+
 ## Rationale
 Most of the design choices were researched shortly before the project with three things in mind
 * Leverage and trust a type system
