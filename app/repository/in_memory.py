@@ -16,9 +16,9 @@ class InMemory(Repository):
 
     # Hardcode seed data
     def seed(self) -> None:
-        self.put_stock(Beer(name="Corona", price="100", quantity="5"))
-        self.put_stock(Beer(name="Modelo", price="200", quantity="10"))
-        self.put_stock(Beer(name="Pilsen", price="300", quantity="8"))
+        self.put_stock(Beer(name="Corona", price=100, quantity=5))
+        self.put_stock(Beer(name="Modelo", price=200, quantity=10))
+        self.put_stock(Beer(name="Pilsen", price=300, quantity=8))
 
     def get_all_stock(self) -> Stock:
         return self.stock

@@ -24,6 +24,6 @@ warn_untypes_fields = true
 
 [dependency-groups]
 dev = [
-    "mypy>=1.13.0",
+    "pyright>=1.1.388",
     "pytest>=8.3.3",
 ]
