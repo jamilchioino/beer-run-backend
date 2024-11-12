@@ -5,6 +5,7 @@ from pydantic import UUID4
 
 from app.api.http import ItemRequest, OrdersResponse
 from app.core.domain.models import Beer, Item, Order, Round, Stock
+from app.core.ports.driver import Driver
 from app.core.services.services import Service
 from app.repository.in_memory import InMemory
 
@@ -23,15 +24,15 @@ def start() -> FastAPI:
     )
 
     # Inject
-    service = Service(InMemory())
+    driver: Driver = Service(InMemory())
 
     @app.get("/stock")
     def all_stock() -> Stock:  # type: ignore
-        return service.get_all_stock()
+        return driver.get_all_stock()
 
     @app.get("/stock/{beer_id}")
     def get_beer(beer_id: UUID4) -> Beer | None:  # type: ignore
-        stock = service.get_stock_for_beer(beer_id)
+        stock = driver.get_stock_for_beer(beer_id)
         if stock is None:
             raise HTTPException(status_code=404, detail="beer not found in stock")
 
@@ -40,15 +41,15 @@ def start() -> FastAPI:
     @app.put("/stock/{beer_id}")
     def put_beer(beer_id: UUID4, beer: Beer) -> Beer:  # type: ignore
         beer.id = beer_id
-        return service.put_stock(beer)
+        return driver.put_stock(beer)
 
     @app.post("/stock")
     def post_beer(beer: Beer) -> Beer:  # type: ignore
-        return service.put_stock(beer)
+        return driver.put_stock(beer)
 
     @app.delete("/stock/{beer_id}")
     def delete_beer(beer_id: UUID4) -> Beer | None:  # type: ignore
-        beer = service.delete_stock(beer_id)
+        beer = driver.delete_stock(beer_id)
         if beer is None:
             raise HTTPException(status_code=404, detail="beer not found in stock")
 
@@ -68,7 +69,7 @@ def start() -> FastAPI:
                 )
             )
 
-        result, err = service.add_round_to_order(order_id, items)
+        result, err = driver.add_round_to_order(order_id, items)
 
         if result is None:
             raise HTTPException(status_code=404, detail=err)
@@ -78,7 +79,7 @@ def start() -> FastAPI:
     # Technically an RPC call, uses post as it is not idempotent
     @app.post("/orders/{order_id}/pay")
     def close_tab(order_id: UUID4) -> Order:  # type: ignore
-        result, err = service.close_tab(order_id)
+        result, err = driver.close_tab(order_id)
         if result is None:
             raise HTTPException(status_code=404, detail=err)
 
@@ -86,11 +87,11 @@ def start() -> FastAPI:
 
     @app.post("/orders")
     def post_order() -> Order:  # type: ignore
-        return service.create_order()
+        return driver.create_order()
 
     @app.get("/orders/{order_id}")
     def get_order(order_id: UUID4) -> Order | None:  # type: ignore
-        order = service.get_order(order_id)
+        order = driver.get_order(order_id)
         if order is None:
             raise HTTPException(status_code=404, detail="order not found")
 
@@ -98,12 +99,12 @@ def start() -> FastAPI:
 
     @app.get("/orders")
     def get_all_orders() -> OrdersResponse:  # type: ignore
-        orders = service.get_all_orders()
+        orders = driver.get_all_orders()
         return OrdersResponse(orders=orders)
 
     @app.delete("/orders/{order_id}/rounds/{round_id}")
     def delete_round_from_order(order_id: UUID4, round_id: UUID4) -> Round | None:  # type: ignore
-        result = service.delete_round_from_order(order_id=order_id, round_id=round_id)
+        result = driver.delete_round_from_order(order_id=order_id, round_id=round_id)
         if result is None:
             raise HTTPException(status_code=404, detail="round not found in order")
         return result

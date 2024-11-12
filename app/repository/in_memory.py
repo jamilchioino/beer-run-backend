@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from pydantic import UUID4
 from app.core.domain.models import Beer, Item, Order, Round, Stock
-from app.core.ports.ports import Repository
+from app.core.ports.repository import Repository
 
 # Imagine this is a kv store or dictionary and not doing o(n) on every query
 

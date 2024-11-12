@@ -2,10 +2,11 @@ from typing import Optional, Tuple
 from pydantic import UUID4
 
 from app.core.domain.models import Beer, Item, Order, Round, Stock
-from app.core.ports.ports import Repository
+from app.core.ports.driver import Driver
+from app.core.ports.repository import Repository
 
 
-class Service:
+class Service(Driver):
     def __init__(self, repository: Repository):
         self.repository: Repository = repository
 
