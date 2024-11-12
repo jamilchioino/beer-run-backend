@@ -11,7 +11,7 @@ Then to start FastApi
 uv run fastapi dev
 ```
 ## Run tests and mypy (optional)
-Normally these would run as gitub actions and activate pull request.
+Normally these would run as GitHub Actions against incoming pull requests.
 ```
 uv run mypy .
 uv run pytest
