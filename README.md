@@ -2,7 +2,7 @@
 A Python exercise to learn modern Python, tooling and architecture
 
 ## Starting the project
-Make sure `uv` is installed, then run:
+Make sure [uv](https://docs.astral.sh/uv/) is installed, then run:
 ```
 uv sync
 ```
