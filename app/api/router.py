@@ -15,11 +15,11 @@ def start() -> FastAPI:
     service = Service(InMemory())
 
     @app.get("/stock")
-    def all_stock() -> Stock:
+    def all_stock() -> Stock:  # type: ignore
         return service.get_all_stock()
 
     @app.get("/stock/{beer_id}")
-    def get_beer(beer_id: UUID4) -> Beer | None:
+    def get_beer(beer_id: UUID4) -> Beer | None:  # type: ignore
         stock = service.get_stock_for_beer(beer_id)
         if stock is None:
             raise HTTPException(status_code=404, detail="beer not found in stock")
@@ -27,16 +27,16 @@ def start() -> FastAPI:
         return stock
 
     @app.put("/stock/{beer_id}")
-    def put_beer(beer_id: UUID4, beer: Beer) -> Beer:
+    def put_beer(beer_id: UUID4, beer: Beer) -> Beer:  # type: ignore
         beer.id = beer_id
         return service.put_stock(beer)
 
     @app.post("/stock/")
-    def post_beer(beer: Beer) -> Beer:
+    def post_beer(beer: Beer) -> Beer:  # type: ignore
         return service.put_stock(beer)
 
     @app.delete("/stock/{beer_id}")
-    def delete_beer(beer_id: UUID4) -> Beer | None:
+    def delete_beer(beer_id: UUID4) -> Beer | None:  # type: ignore
         beer = service.delete_stock(beer_id)
         if beer is None:
             raise HTTPException(status_code=404, detail="beer not found in stock")
@@ -44,7 +44,7 @@ def start() -> FastAPI:
         return beer
 
     @app.post("/orders/{order_id}/rounds")
-    def post_round(order_id: UUID4, request: ItemRequest) -> Order:
+    def post_round(order_id: UUID4, request: ItemRequest) -> Order:  # type: ignore
         items: list[Item] = []
 
         for item in request.items:
@@ -66,7 +66,7 @@ def start() -> FastAPI:
 
     # Technically an RPC call, uses post as it is not idempotent
     @app.post("/orders/{order_id}/pay")
-    def close_tab(order_id: UUID4) -> Order:
+    def close_tab(order_id: UUID4) -> Order:  # type: ignore
         result, err = service.close_tab(order_id)
         if result is None:
             raise HTTPException(status_code=404, detail=err)
@@ -74,11 +74,11 @@ def start() -> FastAPI:
         return result
 
     @app.post("/orders/")
-    def post_order() -> Order:
+    def post_order() -> Order:  # type: ignore
         return service.create_order()
 
     @app.get("/orders/{order_id}")
-    def get_order(order_id: UUID4) -> Order | None:
+    def get_order(order_id: UUID4) -> Order | None:  # type: ignore
         order = service.get_order(order_id)
         if order is None:
             raise HTTPException(status_code=404, detail="order not found")
@@ -86,12 +86,12 @@ def start() -> FastAPI:
         return order
 
     @app.get("/orders/")
-    def get_all_orders() -> OrdersResponse:
+    def get_all_orders() -> OrdersResponse:  # type: ignore
         orders = service.get_all_orders()
         return OrdersResponse(orders=orders)
 
     @app.delete("/orders/{order_id}/rounds/{round_id}")
-    def delete_round_from_order(order_id: UUID4, round_id: UUID4) -> Round | None:
+    def delete_round_from_order(order_id: UUID4, round_id: UUID4) -> Round | None:  # type: ignore
         result = service.delete_round_from_order(order_id=order_id, round_id=round_id)
         if result is None:
             raise HTTPException(status_code=404, detail="round not found in order")

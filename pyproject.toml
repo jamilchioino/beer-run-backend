@@ -22,6 +22,9 @@ disallow_untyped_defs = true
 init_forbid_extra = true
 warn_untypes_fields = true
 
+[tool.pyright]
+typeCheckingMode = "strict"
+
 [dependency-groups]
 dev = [
     "pyright>=1.1.388",
