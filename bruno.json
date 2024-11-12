@@ -1,0 +1,341 @@
+{
+  "name": "BeerRun",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "All Stock",
+      "seq": 1,
+      "request": {
+        "url": "{{baseUrl}}/stock",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Delete Beer",
+      "seq": 4,
+      "request": {
+        "url": "{{baseUrl}}/stock/:beer_id",
+        "method": "DELETE",
+        "headers": [],
+        "params": [
+          {
+            "name": "beer_id",
+            "value": "2094b3d4-4d8f-47d8-aa15-065ef6916c5d",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Delete Round From Order",
+      "seq": 12,
+      "request": {
+        "url": "{{baseUrl}}/orders/:order_id/rounds/:round_id",
+        "method": "DELETE",
+        "headers": [],
+        "params": [
+          {
+            "name": "round_id",
+            "value": "9b57f5fb-7da5-416b-b3aa-97fb8cb39f0b",
+            "type": "path",
+            "enabled": true
+          },
+          {
+            "name": "order_id",
+            "value": "97111b47-57a5-4e11-82cb-5efc19103386",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Get All Orders",
+      "seq": 11,
+      "request": {
+        "url": "{{baseUrl}}/orders/",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Get Beer",
+      "seq": 2,
+      "request": {
+        "url": "{{baseUrl}}/stock/:beer_id",
+        "method": "GET",
+        "headers": [],
+        "params": [
+          {
+            "name": "beer_id",
+            "value": "c718d70d-edd2-46aa-996e-43193c7ba013",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Get Order",
+      "seq": 10,
+      "request": {
+        "url": "{{baseUrl}}/orders/:order_id",
+        "method": "GET",
+        "headers": [],
+        "params": [
+          {
+            "name": "order_id",
+            "value": "f272fdc3-2103-4758-9ac2-60cb165d665f",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Pay Order",
+      "seq": 9,
+      "request": {
+        "url": "{{baseUrl}}/orders/:order_id/pay",
+        "method": "POST",
+        "headers": [],
+        "params": [
+          {
+            "name": "order_id",
+            "value": "a997bedc-ac20-4036-91b5-e8199e63d9fa",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Post Beer",
+      "seq": 5,
+      "request": {
+        "url": "{{baseUrl}}/stock/",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"name\": \"New Beer\",\n  \"price\": 1000,\n  \"quantity\": 2\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Post Order",
+      "seq": 7,
+      "request": {
+        "url": "{{baseUrl}}/orders/",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Post Round",
+      "seq": 6,
+      "request": {
+        "url": "{{baseUrl}}/orders/:order_id/rounds",
+        "method": "POST",
+        "headers": [],
+        "params": [
+          {
+            "name": "order_id",
+            "value": "97111b47-57a5-4e11-82cb-5efc19103386",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"items\": [\n    {\n      \"beer_id\": \"48ce9b88-4d68-4f33-82e3-dee47fc0a60b\",\n      \"quantity\": 3.3,\n      \"discount_flat\": 0,\n      \"discount_rate\": 0.1\n    }\n  ]\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Put Beer",
+      "seq": 3,
+      "request": {
+        "url": "{{baseUrl}}/stock/:beer_id",
+        "method": "PUT",
+        "headers": [],
+        "params": [
+          {
+            "name": "beer_id",
+            "value": "0c328177-0c12-4e50-a706-2154f4aad854",
+            "type": "path",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"name\": \"Modelo\",\n  \"price\": 22,\n  \"quantity\": 23\n}",
+          "formUrlEncoded": [],
+          "multipartForm": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    }
+  ],
+  "activeEnvironmentUid": "jMQ29SJt3uQiWd3actSuM",
+  "environments": [
+    {
+      "variables": [
+        {
+          "name": "baseUrl",
+          "value": "http://localhost:8000",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        }
+      ],
+      "name": "local"
+    }
+  ],
+  "brunoConfig": {
+    "version": "1",
+    "name": "BeerRun",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  }
+}
