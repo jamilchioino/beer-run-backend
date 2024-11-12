@@ -1,3 +1,4 @@
+from uuid import uuid4
 from app.core.domain.models import Beer, Item
 from app.core.services.services import Service
 from app.repository.in_memory import InMemory
@@ -83,6 +84,31 @@ def test_reject_round_due_to_no_stock() -> None:
     # Assert
     assert result is None
     assert err == "not enough beer in stock: 5 TestBeer2(s) left, 6 requested"
+
+
+def test_wrong_order_id() -> None:
+    # Setup
+    service = Service(InMemory())
+    beer1 = service.put_stock(Beer(name="TestBeer1", price=100, quantity=2))
+    beer2 = service.put_stock(Beer(name="TestBeer2", price=200, quantity=5))
+    beer3 = service.put_stock(Beer(name="TestBeer3", price=300, quantity=2))
+
+    service.create_order()
+
+    items = [
+        Item(beer_id=beer1.id, quantity=2),
+        Item(beer_id=beer2.id, quantity=1),
+        Item(beer_id=beer3.id, quantity=1),
+    ]
+
+    # Non existant round
+
+    result, err = service.add_round_to_order(uuid4(), items)
+
+    if result is not None:
+        assert False
+
+    assert err == "order not found"
 
 
 def test_close_tab() -> None:
