@@ -19,6 +19,8 @@ class Stock(BaseModel):
 
 class Item(BaseModel):
     beer_id: UUID4 = uuid4()
+    # Join for convenience
+    beer: Beer | None = None
     # Price at this specific point in time
     # mitigates price discrepancies if beer price
     # is changed in the future and/or in between rounds

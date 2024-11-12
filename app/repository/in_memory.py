@@ -16,9 +16,26 @@ class InMemory(Repository):
 
     # Hardcode seed data
     def seed(self) -> None:
-        self.put_stock(Beer(name="Corona", price=100, quantity=5))
-        self.put_stock(Beer(name="Modelo", price=200, quantity=10))
-        self.put_stock(Beer(name="Pilsen", price=300, quantity=8))
+        beer1 = self.put_stock(Beer(name="Corona", price=100, quantity=5))
+        beer2 = self.put_stock(Beer(name="Modelo", price=200, quantity=10))
+        beer3 = self.put_stock(Beer(name="Pilsen", price=300, quantity=8))
+
+        order = self.create_order()
+        order2 = self.create_order()
+
+        items = [
+            Item(beer_id=beer1.id, quantity=2, discount_rate=0.10, price_per_unit=100),
+            Item(beer_id=beer2.id, quantity=2, discount_rate=0.5, price_per_unit=200),
+            Item(beer_id=beer3.id, quantity=2, discount_rate=0.10, price_per_unit=300),
+        ]
+
+        items2 = [
+            Item(beer_id=beer1.id, quantity=4, discount_rate=0.10, price_per_unit=100),
+            Item(beer_id=beer2.id, quantity=2, discount_rate=0.5, price_per_unit=200),
+        ]
+
+        self.add_round_to_order(order_id=order.id, items=items)
+        self.add_round_to_order(order_id=order2.id, items=items2)
 
     def get_all_stock(self) -> Stock:
         return self.stock

@@ -25,10 +25,30 @@ class Service:
         return self.repository.create_order()
 
     def get_order(self, order_id: UUID4) -> Order | None:
-        return self.repository.get_order(order_id)
+        order = self.repository.get_order(order_id)
+
+        if order is None:
+            return None
+
+        # Join
+        for round in order.rounds:
+            for item in round.items:
+                print("peer")
+                item.beer = self.repository.get_beer_from_stock(beer_id=item.beer_id)
+
+        return order
 
     def get_all_orders(self) -> list[Order]:
-        return self.repository.get_all_orders()
+        orders = self.repository.get_all_orders()
+
+        # Join
+        for order in orders:
+            for rounds in order.rounds:
+                for item in rounds.items:
+                    item.beer = self.repository.get_beer_from_stock(
+                        beer_id=item.beer_id
+                    )
+        return orders
 
     def close_tab(self, order_id: UUID4) -> Tuple[Order | None, Optional[str]]:
         order = self.repository.get_order(order_id)
